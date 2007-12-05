@@ -1,7 +1,7 @@
 %define name    borges
 %define Name    Borges
 %define version 0.14.9
-%define release %mkrel 2
+%define release %mkrel 3
 
 Name:   %{name}
 Version: %{version}
@@ -33,10 +33,7 @@ Obsoletes: Borges
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
-%define INSTALLDIR /usr/share/%{Name}/
-
 %description
-
 Borges is a content production system aimed at creating documents in
 many languages. Its design goals are internationalization,
 flexibility, reusable content, teamwork. The system can currently be
@@ -91,8 +88,6 @@ learning how to use Borges.
 %setup -q -n %{Name}-%{version}
 
 %build
-%makeinstall PREFIX=$(pwd)/installdir/ REALDESTDIR=$(pwd)/installdir/usr/share/Borges/ DOCDIR=$(pwd)/installdir/%{_docdir}/%{name}/
-#make DESTDIR=$(pwd)/installdir/usr/share/Borges/ REALDESTDIR=$(pwd)/installdir/usr/share/Borges/  DOCDIR=$(pwd)/installdir/%{_docdir}/%{name}/
 
 %install
 rm -rf %{buildroot}
@@ -100,9 +95,6 @@ rm -rf %{buildroot}
 rm -f %{buildroot}/usr/share/Borges/backend/Makefile.TDB
 rm -f %{buildroot}/usr/share/Borges/template/drivers/TDB-tex.xsl
 rm -f %{buildroot}/usr/share/Borges/{README,LICENSE,COPYING,VERSION}
-#find doc/ -name .cvsignore -exec rm -f {} \;
-#find doc/ -name \*.validate -exec rm -f {} \;
-#find doc/ -type f -empty -exec rm -f {} \;
 
 %clean
 rm -rf %{buildroot}
