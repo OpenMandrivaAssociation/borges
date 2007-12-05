@@ -1,15 +1,16 @@
-%define name Borges
+%define name    borges
+%define Name    Borges
 %define version 0.14.9
 %define release %mkrel 2
 
-Name: %{name}
+Name:   %{name}
 Version: %{version}
 Release: %{release}
 Summary: Mandriva Linux Documents Management System
 License: GPL
 Group: Publishing
 Url: http://www.mandrivalinux.com/en/doc/project/Borges/
-Source0: %{name}-%{version}.tar.bz2
+Source0: %{Name}-%{version}.tar.bz2
 Requires: %{name}-module
 Requires: libxslt-proc
 Requires: make
@@ -18,9 +19,9 @@ Requires: xfig
 Requires: libxml2-utils
 Conflicts: Borges-Frontend < 0.12.2
 BuildRequires: libxslt-proc
-BuildRequires: perl-DateManip
-BuildRequires: perl-XML-LibXML
-BuildRequires: perl-XML-Twig
+BuildRequires: perl(Date::Manip)
+BuildRequires: perl(XML::LibXML)
+BuildRequires: perl(XML::Twig)
 BuildRequires: ImageMagick
 BuildRequires: xfig
 BuildRequires: jadetex
@@ -28,10 +29,11 @@ BuildRequires: docbook-style-dsssl
 BuildRequires: docbook-style-xsl
 BuildRequires: docbook-dtd42-xml
 BuildRequires: libxml2-utils
+Obsoletes: Borges
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
-%define INSTALLDIR /usr/share/%{name}/
+%define INSTALLDIR /usr/share/%{Name}/
 
 %description
 
@@ -40,32 +42,34 @@ many languages. Its design goals are internationalization,
 flexibility, reusable content, teamwork. The system can currently be
 used for any project using documents based on the DocBook XML DTD.
 
-%package DocBook
+%package docbook
 Summary: The Borges DocBook module 
 Group: Publishing
-Provides: Borges-module
-Requires: Borges
+Provides: borges-module
+Requires: borges
 Requires: docbook-dtd42-xml
 Requires: docbook-style-xsl
 Requires: docbook-style-dsssl
 Requires: tetex-latex
 Requires: jadetex
 Requires: openjade
+Obsoletes: Borges-DocBook
 
-%description DocBook
+%description docbook
 This package contains the DocBook module for the Borges Documents
 Management System.
 It holds the different files allowing to handle documents written with
 the DocBook XML DTD.
 
 
-%package Frontend
+%package frontend
 Summary: The BorgesWeb frontend
 Group: Publishing
-Requires: Borges
+Requires: borges
 Requires: apache-mod_suexec
+Obsoletes: Borges-Frontend
 
-%description Frontend
+%description frontend
 This package contains the Web frontend for the Borges Documents
 Management System.
 It is an HTML interface allowing users to upload or edit inline the
@@ -84,27 +88,28 @@ Borges so the sources included can be regarded as a tutorial for
 learning how to use Borges.
 
 %prep
-%setup -q
+%setup -q -n %{Name}-%{version}
 
 %build
-%makeinstall PREFIX=$(pwd)/installdir/ REALDESTDIR=$(pwd)/installdir/usr/share/Borges/
-make DESTDIR=$(pwd)/installdir/usr/share/Borges/ REALDESTDIR=$(pwd)/installdir/usr/share/Borges/
+%makeinstall PREFIX=$(pwd)/installdir/ REALDESTDIR=$(pwd)/installdir/usr/share/Borges/ DOCDIR=$(pwd)/installdir/%{_docdir}/%{name}/
+#make DESTDIR=$(pwd)/installdir/usr/share/Borges/ REALDESTDIR=$(pwd)/installdir/usr/share/Borges/  DOCDIR=$(pwd)/installdir/%{_docdir}/%{name}/
 
 %install
 rm -rf %{buildroot}
-%makeinstall PREFIX=%{buildroot}/
+%makeinstall PREFIX=%{buildroot}/ DOCDIR=%{buildroot}/%{_docdir}/%{name}
 rm -f %{buildroot}/usr/share/Borges/backend/Makefile.TDB
 rm -f %{buildroot}/usr/share/Borges/template/drivers/TDB-tex.xsl
-find doc/ -name .cvsignore -exec rm -f {} \;
-find doc/ -name \*.validate -exec rm -f {} \;
-find doc/ -type f -empty -exec rm -f {} \;
+rm -f %{buildroot}/usr/share/Borges/{README,LICENSE,COPYING,VERSION}
+#find doc/ -name .cvsignore -exec rm -f {} \;
+#find doc/ -name \*.validate -exec rm -f {} \;
+#find doc/ -type f -empty -exec rm -f {} \;
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README VERSION TODO CHANGELOG
+%{_docdir}/%{name}
 %dir %{INSTALLDIR}
 # version management stylesheets
 %dir %{INSTALLDIR}/XSL
@@ -150,27 +155,22 @@ rm -rf %{buildroot}
 %{INSTALLDIR}/backend/psgml-top.xml
 %{INSTALLDIR}/template/Makefile
 %{INSTALLDIR}/template/README
-%{INSTALLDIR}/VERSION
-%{INSTALLDIR}/README
-%{INSTALLDIR}/LICENSE
-%{INSTALLDIR}/COPYING
 # Sample document
 %dir %{INSTALLDIR}/Sample
 %{INSTALLDIR}/Sample/*
 # %{INSTALLDIR}/Sample/en/*
+%exclude %{_docdir}/%{name}/doc
 
 
-%files DocBook
+%files docbook
 %defattr(-,root,root)
 %{INSTALLDIR}/template/drivers/docbook-*sl
 %{INSTALLDIR}/backend/Makefile.DB
 
-%files Frontend
+%files frontend
 %defattr(-,root,root)
 %{INSTALLDIR}/bin/web-frontend.cgi
 
 %files doc
 %defattr(-,root,root)
-%doc README VERSION TODO CHANGELOG LICENSE COPYING doc
-
-
+%{_docdir}/%{name}/doc
