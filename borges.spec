@@ -110,66 +110,21 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{_docdir}/%{name}
-%dir %{INSTALLDIR}
-# version management stylesheets
-%dir %{INSTALLDIR}/XSL
-%{INSTALLDIR}/XSL/bigbrother.xsl
-%{INSTALLDIR}/XSL/bigbrother-todos.xsl
-%{INSTALLDIR}/XSL/extract_ids.xsl
-%{INSTALLDIR}/XSL/gather_revhistories.xsl
-%{INSTALLDIR}/XSL/summarize_tasks.xsl
-%{INSTALLDIR}/XSL/db2omf.xsl
-%{INSTALLDIR}/XSL/extract_revisions.xsl
-%{INSTALLDIR}/XSL/docs_index.xsl
-%{INSTALLDIR}/XSL/filter.xsl
-%{INSTALLDIR}/XSL/report_summary.xsl
-%{INSTALLDIR}/XSL/todo_tasks.xsl
-%{INSTALLDIR}/XSL/list_modules.xsl
-# management perl/shell scripts.xsl
-%dir %{INSTALLDIR}/bin
-%{INSTALLDIR}/bin/*.sh
-%{INSTALLDIR}/bin/configure
-%{INSTALLDIR}/bin/*.pl
-%{INSTALLDIR}/bin/diff2html
-# Utilities
-%dir %{INSTALLDIR}/utils
-%{INSTALLDIR}/utils/*
-# Makefile structure
-%dir %{INSTALLDIR}/backend
-%{INSTALLDIR}/backend/cvsignore.*
-%{INSTALLDIR}/backend/Makefile.entities
-%{INSTALLDIR}/backend/Makefile.src.images
-%{INSTALLDIR}/backend/Makefile.reports
-%{INSTALLDIR}/backend/Makefile.onemodule.include
-%{INSTALLDIR}/backend/Makefile.module
-%{INSTALLDIR}/backend/Makefile.manual.include
-%{INSTALLDIR}/backend/Makefile.manual
-%{INSTALLDIR}/backend/Makefile.include.in
-%{INSTALLDIR}/backend/Makefile.images
-# System implementation template
-%dir %{INSTALLDIR}/template/
-%dir %{INSTALLDIR}/template/conf/
-%dir %{INSTALLDIR}/template/drivers/
-%{INSTALLDIR}/template/conf/*
-%{INSTALLDIR}/template/images
-%{INSTALLDIR}/backend/psgml-top.xml
-%{INSTALLDIR}/template/Makefile
-%{INSTALLDIR}/template/README
-# Sample document
-%dir %{INSTALLDIR}/Sample
-%{INSTALLDIR}/Sample/*
-# %{INSTALLDIR}/Sample/en/*
+%{_datadir}/%{Name}
 %exclude %{_docdir}/%{name}/doc
+%exclude %{_datadir}/%{Name}/template/drivers/docbook-*sl
+%exclude %{_datadir}/%{Name}/backend/Makefile.DB
+%exclude %{_datadir}/%{Name}/bin/web-frontend.cgi
 
 
 %files docbook
 %defattr(-,root,root)
-%{INSTALLDIR}/template/drivers/docbook-*sl
-%{INSTALLDIR}/backend/Makefile.DB
+%{_datadir}/%{Name}/template/drivers/docbook-*sl
+%{_datadir}/%{Name}/backend/Makefile.DB
 
 %files frontend
 %defattr(-,root,root)
-%{INSTALLDIR}/bin/web-frontend.cgi
+%{_datadir}/%{Name}/bin/web-frontend.cgi
 
 %files doc
 %defattr(-,root,root)
