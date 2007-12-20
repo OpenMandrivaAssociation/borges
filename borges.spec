@@ -31,6 +31,7 @@ BuildRequires: docbook-dtd42-xml
 BuildRequires: libxml2-utils
 Obsoletes: Borges
 BuildArch: noarch
+BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %description
 Borges is a content production system aimed at creating documents in
