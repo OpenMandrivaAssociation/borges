@@ -14,7 +14,7 @@ Source0: %{Name}-%{version}.tar.bz2
 Requires: %{name}-module
 Requires: libxslt-proc
 Requires: make
-Requires: ImageMagick
+Requires: imagemagick
 Requires: xfig
 Requires: libxml2-utils
 Conflicts: Borges-Frontend < 0.12.2
@@ -22,7 +22,7 @@ BuildRequires: libxslt-proc
 BuildRequires: perl(Date::Manip)
 BuildRequires: perl(XML::LibXML)
 BuildRequires: perl(XML::Twig)
-BuildRequires: ImageMagick
+BuildRequires: imagemagick
 BuildRequires: xfig
 BuildRequires: jadetex
 BuildRequires: docbook-style-dsssl
