@@ -1,7 +1,7 @@
 %define name    borges
 %define Name    Borges
 %define version 0.14.9
-%define release %mkrel 3
+%define release %mkrel 4
 
 Name:   %{name}
 Version: %{version}
