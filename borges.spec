@@ -1,7 +1,7 @@
 %define name    borges
 %define Name    Borges
 %define version 0.14.9
-%define release %mkrel 7
+%define release %mkrel 8
 
 Name:   %{name}
 Version: %{version}
@@ -121,3 +121,43 @@ rm -rf %{buildroot}
 %files doc
 %defattr(-,root,root)
 %{_docdir}/%{name}/doc
+
+
+%changelog
+* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-7mdv2011.0
++ Revision: 663334
+- mass rebuild
+
+* Tue Nov 30 2010 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-6mdv2011.0
++ Revision: 603767
+- rebuild
+
+* Tue Mar 16 2010 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-5mdv2010.1
++ Revision: 522258
+- rebuilt for 2010.1
+
+* Sun Aug 09 2009 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-4mdv2010.0
++ Revision: 413183
+- rebuild
+
+* Thu Dec 11 2008 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-3mdv2009.1
++ Revision: 312915
+- lowercase ImageMagick
+
+* Thu Dec 20 2007 Olivier Blin <oblin@mandriva.com> 0.14.9-3mdv2009.0
++ Revision: 135856
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Wed Dec 05 2007 Guillaume Rousse <guillomovitch@mandriva.org> 0.14.9-3mdv2008.1
++ Revision: 115600
+- spec cleanup
+- cleanup file section
+- lowercase subpackages names
+  standard doc policy
+- lowercase package name
+- spec cleanup
+- drop explicit perl dependencies
+
