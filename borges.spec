@@ -1,37 +1,32 @@
-%define name    borges
-%define Name    Borges
-%define version 0.14.9
-%define release %mkrel 8
+%define sname    Borges
 
-Name:   %{name}
-Version: %{version}
-Release: %{release}
-Summary: Mandriva Linux Documents Management System
-License: GPL
-Group: Publishing
-Url: http://www.mandrivalinux.com/en/doc/project/Borges/
-Source0: %{Name}-%{version}.tar.bz2
-Requires: %{name}-module
-Requires: libxslt-proc
-Requires: make
-Requires: imagemagick
-Requires: xfig
-Requires: libxml2-utils
-Conflicts: Borges-Frontend < 0.12.2
-BuildRequires: libxslt-proc
-BuildRequires: perl(Date::Manip)
-BuildRequires: perl(XML::LibXML)
-BuildRequires: perl(XML::Twig)
-BuildRequires: imagemagick
-BuildRequires: xfig
-BuildRequires: jadetex
-BuildRequires: docbook-style-dsssl
-BuildRequires: docbook-style-xsl
-BuildRequires: docbook-dtd42-xml
-BuildRequires: libxml2-utils
-Obsoletes: Borges
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}
+Summary:	Mandriva Linux Documents Management System
+Name:		borges
+Version:	0.14.9
+Release:	8
+License:	GPLv2
+Group:		Publishing
+Url:		http://www.mandrivalinux.com/en/doc/project/Borges/
+Source0:	%{sname}-%{version}.tar.bz2
+BuildArch:	noarch
+
+BuildRequires:	docbook-style-dsssl
+BuildRequires:	docbook-style-xsl
+BuildRequires:	docbook-dtd42-xml
+BuildRequires:	imagemagick
+BuildRequires:	jadetex
+BuildRequires:	libxml2-utils
+BuildRequires:	xfig
+BuildRequires:	xsltproc
+BuildRequires:	perl(Date::Manip)
+BuildRequires:	perl(XML::LibXML)
+BuildRequires:	perl(XML::Twig)
+Requires:	%{name}-module
+Requires:	imagemagick
+Requires:	libxml2-utils
+Requires:	make
+Requires:	xfig
+Requires:	xsltproc
 
 %description
 Borges is a content production system aimed at creating documents in
@@ -39,125 +34,73 @@ many languages. Its design goals are internationalization,
 flexibility, reusable content, teamwork. The system can currently be
 used for any project using documents based on the DocBook XML DTD.
 
-%package docbook
-Summary: The Borges DocBook module 
-Group: Publishing
-Provides: borges-module
-Requires: borges
-Requires: docbook-dtd42-xml
-Requires: docbook-style-xsl
-Requires: docbook-style-dsssl
-Requires: tetex-latex
-Requires: jadetex
-Requires: openjade
-Obsoletes: Borges-DocBook
+%package	docbook
+Summary:	The Borges DocBook module 
+Group:		Publishing
+Provides:	borges-module
+Requires:	borges
+Requires:	docbook-dtd42-xml
+Requires:	docbook-style-xsl
+Requires:	docbook-style-dsssl
+Requires:	tetex-latex
+Requires:	jadetex
+Requires:	openjade
 
-%description docbook
+%description	docbook
 This package contains the DocBook module for the Borges Documents
 Management System.
 It holds the different files allowing to handle documents written with
 the DocBook XML DTD.
 
+%package	frontend
+Summary:	The BorgesWeb frontend
+Group:		Publishing
+Requires:	borges
+Requires:	apache-mod_suexec
 
-%package frontend
-Summary: The BorgesWeb frontend
-Group: Publishing
-Requires: borges
-Requires: apache-mod_suexec
-Obsoletes: Borges-Frontend
-
-%description frontend
+%description	frontend
 This package contains the Web frontend for the Borges Documents
 Management System.
 It is an HTML interface allowing users to upload or edit inline the
 different modules they have tasks assigned on. It then commits
 modifications to CVS and eventually pass associated task.
 
+%package	doc
+Summary:	The Borges DMS documentation
+Group:		Publishing
 
-%package doc
-Summary: The Borges DMS documentation
-Group: Publishing
-
-%description doc
+%description	doc
 This package contains the documentation and the documentation sources
 for the Borges Documents Management System. The doc is written with
 Borges so the sources included can be regarded as a tutorial for
 learning how to use Borges.
 
 %prep
-%setup -q -n %{Name}-%{version}
+%setup -qn %{sname}-%{version}
 
 %build
 
 %install
-rm -rf %{buildroot}
 %makeinstall PREFIX=%{buildroot}/ DOCDIR=%{buildroot}/%{_docdir}/%{name}
 rm -f %{buildroot}/usr/share/Borges/backend/Makefile.TDB
 rm -f %{buildroot}/usr/share/Borges/template/drivers/TDB-tex.xsl
 rm -f %{buildroot}/usr/share/Borges/{README,LICENSE,COPYING,VERSION}
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %{_docdir}/%{name}
-%{_datadir}/%{Name}
+%{_datadir}/%{sname}
 %exclude %{_docdir}/%{name}/doc
-%exclude %{_datadir}/%{Name}/template/drivers/docbook-*sl
-%exclude %{_datadir}/%{Name}/backend/Makefile.DB
-%exclude %{_datadir}/%{Name}/bin/web-frontend.cgi
-
+%exclude %{_datadir}/%{sname}/template/drivers/docbook-*sl
+%exclude %{_datadir}/%{sname}/backend/Makefile.DB
+%exclude %{_datadir}/%{sname}/bin/web-frontend.cgi
 
 %files docbook
-%defattr(-,root,root)
-%{_datadir}/%{Name}/template/drivers/docbook-*sl
-%{_datadir}/%{Name}/backend/Makefile.DB
+%{_datadir}/%{sname}/template/drivers/docbook-*sl
+%{_datadir}/%{sname}/backend/Makefile.DB
 
 %files frontend
-%defattr(-,root,root)
-%{_datadir}/%{Name}/bin/web-frontend.cgi
+%{_datadir}/%{sname}/bin/web-frontend.cgi
 
 %files doc
-%defattr(-,root,root)
 %{_docdir}/%{name}/doc
-
-
-%changelog
-* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-7mdv2011.0
-+ Revision: 663334
-- mass rebuild
-
-* Tue Nov 30 2010 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-6mdv2011.0
-+ Revision: 603767
-- rebuild
-
-* Tue Mar 16 2010 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-5mdv2010.1
-+ Revision: 522258
-- rebuilt for 2010.1
-
-* Sun Aug 09 2009 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-4mdv2010.0
-+ Revision: 413183
-- rebuild
-
-* Thu Dec 11 2008 Oden Eriksson <oeriksson@mandriva.com> 0.14.9-3mdv2009.1
-+ Revision: 312915
-- lowercase ImageMagick
-
-* Thu Dec 20 2007 Olivier Blin <oblin@mandriva.com> 0.14.9-3mdv2009.0
-+ Revision: 135856
-- restore BuildRoot
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
-
-* Wed Dec 05 2007 Guillaume Rousse <guillomovitch@mandriva.org> 0.14.9-3mdv2008.1
-+ Revision: 115600
-- spec cleanup
-- cleanup file section
-- lowercase subpackages names
-  standard doc policy
-- lowercase package name
-- spec cleanup
-- drop explicit perl dependencies
 
