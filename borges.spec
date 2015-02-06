@@ -3,7 +3,7 @@
 Summary:	Mandriva Linux Documents Management System
 Name:		borges
 Version:	0.14.9
-Release:	8
+Release:	9
 License:	GPLv2
 Group:		Publishing
 Url:		http://www.mandrivalinux.com/en/doc/project/Borges/
