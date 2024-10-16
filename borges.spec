@@ -6,7 +6,7 @@ Version:	0.14.9
 Release:	9
 License:	GPLv2
 Group:		Publishing
-Url:		http://www.mandrivalinux.com/en/doc/project/Borges/
+Url:		https://www.mandrivalinux.com/en/doc/project/Borges/
 Source0:	%{sname}-%{version}.tar.bz2
 BuildArch:	noarch
 
